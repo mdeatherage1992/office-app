@@ -1,0 +1,27 @@
+
+<div class="container">
+<h1>Home Page</h1>
+<% if current_user %>
+<p>Logged in as <%= current_user.name %></p>
+<%= link_to "Log Out", destroy_user_session_path,:method => :delete %>
+<% if current_user.organization_id.nil? %>
+<p>You aren't a member of any organizations.</p>
+<p>Join an existing one or create your own</p>
+<h3>Organizations</h3>
+<ul>
+  <% @orgs.each do |o|%>
+  <li>
+    <%= o.name %> <%=link_to "Edit", edit_organization_path(o.id) %> | <%= link_to "Join", join_organization_path(:organization_id => o.id),method: 'post' %>
+  </li>
+  <% end %>
+  <% else %>
+  <% user_org = Organization.find(current_user.organization_id) %>
+  <h3><%= user_org.name %></h3>
+  <%= link_to "View Shifts", view_shifts_path(user_org.id) %> | <%= link_to "Edit", edit_organization_path(user_org.id) %> | <%= link_to "Leave", leave_organization_path(:organization_id => user_org.id),method: 'patch' %>
+</ul>
+<% end %>
+<% else %>
+<%= link_to "Sign Up", new_user_registration_path %>
+<%= link_to "Sign In", new_user_session_path %>
+<% end %>
+</div>

@@ -1,0 +1,27 @@
+<h1>Shifts</h1>
+<p>Logged in as <%= current_user.name %></p>
+<h3><%= Organization.find(params[:id]).name %> Shifts</h3>
+<table>
+<thead>
+<tr>
+<th>Employee Name</th>
+<th>Start Time</th>
+<th>Finish Time</th>
+<th>Break Length</th>
+<th>Hours Worked</th>
+<th>Shift Cost</th>
+</tr>
+</thead>
+<tbody>
+<%= form_for(@shift) do |x| %>
+  <%= x.hidden_field :user_id, value: current_user.id %>
+<tr>
+  <td><%= text_field_tag :name,"",{ value: current_user.name } %></td>
+  <td><%= x.datetime_select :start %></td>
+  <td><%= x.datetime_select :finish %></td>
+  <td><%= x.number_field :break_length %></td>
+  <td><%= x.submit "Input Shift" %></td>
+</tr>
+<% end %>
+</tbody>
+</table>
