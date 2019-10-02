@@ -11,12 +11,25 @@ end
 def show
 end
 
+def create
+  if !Organization.find_by(name: params["organization"]["name"])
+  @org = Organization.create(organization_params)
+  current_user.organization_id = @org.id
+  current_user.save
+  redirect_to root_path
+  flash[:message] = "Successfully Created #{@org.name} & Added you."
+  else
+  binding.pry
+  end
+end
+
 def edit
   @org = Organization.find(params[:id])
 end
 
 def update
   @org = Organization.find(params[:id])
+  binding.pry
   @org.assign_attributes(organization_params)
   @org.save!
   redirect_to root_path
@@ -24,6 +37,8 @@ def update
 end
 
 def view_shifts
+  @q = current_user.organization.shifts.ransack(params[:q])
+  @shifts = @q.result.includes(:user).order(:start).reverse
   @shift = Shift.new
 end
 

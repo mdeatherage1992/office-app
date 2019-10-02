@@ -3,7 +3,7 @@
 <h1>Home Page</h1>
 <% if current_user %>
 <p>Logged in as <%= current_user.name %></p>
-<%= link_to "Log Out", destroy_user_session_path,:method => :delete %>
+<%= link_to "Log Out", destroy_user_session_path,:method => :delete %> | <%= link_to "Edit User Details", edit_user_registration_path %>
 <% if current_user.organization_id.nil? %>
 <p>You aren't a member of any organizations.</p>
 <p>Join an existing one or create your own</p>
@@ -14,11 +14,19 @@
     <%= o.name %> <%=link_to "Edit", edit_organization_path(o.id) %> | <%= link_to "Join", join_organization_path(:organization_id => o.id),method: 'post' %>
   </li>
   <% end %>
+</ul>
+<h3>Create Organization</h3>
+<%= form_for(@new_org) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :rate %>
+  <%= f.number_field :rate, :step => 0.01 %>
+  <%= f.submit "Create Organization & Join", class:'btn btn-primary' %>
+<% end %>
   <% else %>
   <% user_org = Organization.find(current_user.organization_id) %>
   <h3><%= user_org.name %></h3>
   <%= link_to "View Shifts", view_shifts_path(user_org.id) %> | <%= link_to "Edit", edit_organization_path(user_org.id) %> | <%= link_to "Leave", leave_organization_path(:organization_id => user_org.id),method: 'patch' %>
-</ul>
 <% end %>
 <% else %>
 <%= link_to "Sign Up", new_user_registration_path %>

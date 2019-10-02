@@ -17,14 +17,14 @@ ActiveRecord::Schema.define(version: 2019_10_01_150911) do
 
   create_table "organizations", force: :cascade do |t|
     t.string "name"
-    t.integer "rate"
+    t.float "rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "shifts", force: :cascade do |t|
-    t.time "start"
-    t.time "finish"
+    t.datetime "start"
+    t.datetime "finish"
     t.integer "break_length"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

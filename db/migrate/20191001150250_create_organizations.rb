@@ -2,7 +2,7 @@ class CreateOrganizations < ActiveRecord::Migration[5.2]
   def change
     create_table :organizations do |t|
       t.string :name
-      t.integer :rate
+      t.float :rate
       t.timestamps
     end
   end

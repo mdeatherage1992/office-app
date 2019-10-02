@@ -1,27 +1,68 @@
+<head>
+<style>#dttb{width: 90%; position: relative; left: 100px;}</style>
+<script>
+$(document).ready(function() {
+  var table = $("#shift-table").DataTable();
+  table.columns().every(function () {
+    var that = this;
+    $( 'input', this.footer() ).on('keyup change', function () {
+        if ( that.search() !== this.value ) {
+            that
+                .search( this.value )
+                .draw();
+        }
+    } );
+} );
+});
+</script>
+</head>
 <h1>Shifts</h1>
 <p>Logged in as <%= current_user.name %></p>
 <h3><%= Organization.find(params[:id]).name %> Shifts</h3>
-<table>
+<table class="table" id="shift-table" style="width: 80%;">
 <thead>
 <tr>
 <th>Employee Name</th>
+<th>Shift Date</th>
 <th>Start Time</th>
 <th>Finish Time</th>
 <th>Break Length</th>
 <th>Hours Worked</th>
 <th>Shift Cost</th>
+<th>Actions</th>
 </tr>
 </thead>
 <tbody>
-<%= form_for(@shift) do |x| %>
-  <%= x.hidden_field :user_id, value: current_user.id %>
+<% @shifts.each do |f| %>
 <tr>
-  <td><%= text_field_tag :name,"",{ value: current_user.name } %></td>
-  <td><%= x.datetime_select :start %></td>
-  <td><%= x.datetime_select :finish %></td>
-  <td><%= x.number_field :break_length %></td>
-  <td><%= x.submit "Input Shift" %></td>
+<td><%= User.find(f.user_id).name %></td>
+<td><%= f.start.to_date%></td>
+<td><%= f.start.strftime('%I:%M %p') %></td>
+<td><%= f.finish.strftime('%I:%M %p') %></td>
+<td><%= f.break_length%></td>
+<td><%= f.hours_worked %></td>
+<td>$<%= f.shift_cost %></td>
+<td><%= link_to "Edit", edit_shift_path(f.id) %> | <%= link_to "Delete", shift_path(f.id),:method => 'delete' %></td>
 </tr>
 <% end %>
 </tbody>
+<tfoot>
+  <th type="text"><input placeholder="Search Employees"class="form-control" type="text"></input></th>
+  <th type="text"><input placeholder="Search Shift Dates"class="form-control"type="text"></input></th>
+  <th type="text"><input placeholder="Search Start Times"class="form-control"type="text"></input></th>
+  <th type="text"><input placeholder="Search Finish Times"class="form-control"type="text"></input></th>
+  <th type="text"><input placeholder="Search Break Times"class="form-control"type="text"></input></th>
+  <th type="text"><input placeholder="Search Hours Worked"class="form-control"type="text"></input></th>
+  <th type="text"><input placeholder="Search Shift Costs"class="form-control"type="text"></input></th>
+</tfoot>
 </table>
+<tr>
+<%= form_for(@shift) do |x| %>
+  <%= x.hidden_field :user_id, value: current_user.id %>
+  <td><%= text_field_tag :name,"",{ value: current_user.name, readonly:true, class:'form-group' } %></td>
+  <td><%= x.datetime_field :start, class:'form-group'  %></td>
+  <td><%= x.datetime_field :finish, class:'form-group'  %></td>
+  <td><%= x.number_field :break_length, class:'form-group'  %></td>
+  <td><%= x.submit "Input Shift", class:'btn btn-primary'  %></td>
+<% end %>
+</tr>

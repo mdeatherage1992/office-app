@@ -17,6 +17,9 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'bootstrap'
 gem 'pry'
+gem 'ransack'
+gem 'simple_form'
+gem 'jquery-datatables'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 

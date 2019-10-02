@@ -1,0 +1,7 @@
+<%= simple_form_for @shift, url:shift_path(id: @shift.id), method: :put do |x| %>
+  <%= x.hidden_field :user_id, value: @shift.user_id %>
+  <%= x.input :start, class:'form-group', value: @shift.start  %><br>
+  <%= x.input :finish, class:'form-group', value: @shift.finish  %><br>
+  <%= x.input :break_length, class:'form-group', value: @shift.break_length  %><br>
+  <%= x.submit "Update Shift", class:'btn btn-primary'  %>
+<% end %>
