@@ -19,8 +19,8 @@
 <%= form_for(@new_org) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
-  <%= f.label :rate %>
-  <%= f.number_field :rate, :step => 0.01 %>
+  <%= f.label "Hourly Rate" %>
+  $: <%= f.number_field :rate, :step => 0.01 %>
   <%= f.submit "Create Organization & Join", class:'btn btn-primary' %>
 <% end %>
   <% else %>

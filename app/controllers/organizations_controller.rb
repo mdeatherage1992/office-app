@@ -12,15 +12,11 @@ def show
 end
 
 def create
-  if !Organization.find_by(name: params["organization"]["name"])
   @org = Organization.create(organization_params)
   current_user.organization_id = @org.id
-  current_user.save
+  current_user.save!
   redirect_to root_path
   flash[:message] = "Successfully Created #{@org.name} & Added you."
-  else
-  binding.pry
-  end
 end
 
 def edit
@@ -29,7 +25,6 @@ end
 
 def update
   @org = Organization.find(params[:id])
-  binding.pry
   @org.assign_attributes(organization_params)
   @org.save!
   redirect_to root_path
@@ -44,6 +39,8 @@ end
 
 def leave_organization
   org = Organization.find(params["organization_id"].to_i)
+  shifts = Shift.where(user_id: current_user.id)
+  shifts.delete_all
   current_user.organization_id = nil
   current_user.save!
   redirect_to root_path

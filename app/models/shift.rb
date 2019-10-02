@@ -1,6 +1,7 @@
 class Shift < ApplicationRecord
   belongs_to :user
   delegate :organization, to: :user
+
   def shift_length
     self.finish - self.start
   end

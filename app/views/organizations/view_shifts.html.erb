@@ -56,10 +56,11 @@ $(document).ready(function() {
   <th type="text"><input placeholder="Search Shift Costs"class="form-control"type="text"></input></th>
 </tfoot>
 </table>
+
 <tr>
 <%= form_for(@shift) do |x| %>
   <%= x.hidden_field :user_id, value: current_user.id %>
-  <td><%= text_field_tag :name,"",{ value: current_user.name, readonly:true, class:'form-group' } %></td>
+  <td><%= text_field_tag :name,"",{ value: current_user.name, readonly:true, class:'form-group', disabled:true } %></td>
   <td><%= x.datetime_field :start, class:'form-group'  %></td>
   <td><%= x.datetime_field :finish, class:'form-group'  %></td>
   <td><%= x.number_field :break_length, class:'form-group'  %></td>
