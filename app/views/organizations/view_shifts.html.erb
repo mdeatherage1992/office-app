@@ -54,17 +54,17 @@ $(document).ready(function() {
   <th type="text"><input placeholder="Search Break Times"class="form-control"type="text"></input></th>
   <th type="text"><input placeholder="Search Hours Worked"class="form-control"type="text"></input></th>
   <th type="text"><input placeholder="Search Shift Costs"class="form-control"type="text"></input></th>
-  <th type="text"><input style="display:none;"placeholder="Search Shift Costs"class="form-control"type="text"></input></th>  
+  <th type="text"><input style="display:none;"placeholder="Search Shift Costs"class="form-control"type="text"></input></th>
 </tfoot>
 </table>
-
+<h5>Add Shift</h5>
 <tr>
 <%= form_for(@shift) do |x| %>
   <%= x.hidden_field :user_id, value: current_user.id %>
-  <td><%= text_field_tag :name,"",{ value: current_user.name, readonly:true, class:'form-group', disabled:true } %></td>
-  <td><%= x.datetime_field :start, class:'form-group'  %></td>
-  <td><%= x.datetime_field :finish, class:'form-group'  %></td>
-  <td><%= x.number_field :break_length, class:'form-group'  %></td>
+  <td>Name: <%= text_field_tag :name,"",{ value: current_user.name, readonly:true, class:'form-group', disabled:true } %></td>
+  <td>Start Time: <%= x.datetime_field :start, class:'form-group'  %></td>
+  <td>End Time: <%= x.datetime_field :finish, class:'form-group'  %></td>
+  <td>Break Length: <%= x.number_field :break_length, class:'form-group'  %></td>
   <td><%= x.submit "Input Shift", class:'btn btn-primary'  %></td>
 <% end %>
 </tr>
