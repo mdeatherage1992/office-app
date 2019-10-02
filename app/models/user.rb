@@ -6,9 +6,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
-         :validatable, :authentication_keys => {email: true, login: false}
+         :validatable, :authentication_keys => { email: true, login: false }
 
-     def login
-       @login || self.name || self.email
-     end
+  def login
+    @login || self.name || self.email
+  end
 end

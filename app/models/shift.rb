@@ -14,5 +14,4 @@ class Shift < ApplicationRecord
   def shift_cost
     (hours_worked * Organization.find(User.find(self.user_id).organization_id).rate).round(2)
   end
-
 end

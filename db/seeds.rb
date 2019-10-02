@@ -7,8 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 orgs = Organization.create(
-[
-{name: "Bob's Burgers", rate: 10},
-{name: "Moe's Tavern", rate: 12},
-{name: "Sally's Sandwiches", rate: 13}
-])
+  [
+    { name: "Bob's Burgers", rate: 10 },
+    { name: "Moe's Tavern", rate: 12 },
+    { name: "Sally's Sandwiches", rate: 13 }
+  ]
+)
